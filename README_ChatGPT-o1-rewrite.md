@@ -9,7 +9,7 @@ Below is an **adapted README** for **`ntnts`**, following a style similar to the
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/ntnts.svg)](https://pypi.org/project/ntnts)
 [![License](https://img.shields.io/pypi/l/ntnts.svg)](https://pypi.org/pypi/ntnts)
 
-> **Execution-free, repository-grounded code intent analysis.**  
+> **Execution-free, repository-grounded code intent analysis.**
 > Summarize code symbols with LLM-generated “intents” and embed them using Polars dataframes—leveraging optional local or GitHub-based file discovery.
 
 ---
@@ -17,10 +17,10 @@ Below is an **adapted README** for **`ntnts`**, following a style similar to the
 ## Overview
 
 **`ntnts`** is a CLI tool (and importable Python library) for:
-- **Collecting files** from a local repository (using [polars-ls](https://github.com/lmmx/polars-ls)) or from GitHub (using [octopolars](https://github.com/lmmx/octopolars))  
-- **Analyzing code** to discover symbols (classes, functions, etc.)  
-- **Generating “intents”** (short natural-language descriptions of each symbol’s purpose, typically 5 descriptions per symbol) using an LLM  
-- **Embedding** those textual intents into vectors (using [polars-fastembed](https://github.com/lmmx/polars-fastembed))  
+- **Collecting files** from a local repository (using [polars-ls](https://github.com/lmmx/polars-ls)) or from GitHub (using [octopolars](https://github.com/lmmx/octopolars))
+- **Analyzing code** to discover symbols (classes, functions, etc.)
+- **Generating “intents”** (short natural-language descriptions of each symbol’s purpose, typically 5 descriptions per symbol) using an LLM
+- **Embedding** those textual intents into vectors (using [polars-fastembed](https://github.com/lmmx/polars-fastembed))
 
 The end result is a Polars-based inventory of your codebase—each row representing a file or symbol, with columns for:
 - **Symbol name and type**
@@ -50,8 +50,8 @@ pip install ntnts[polars-lts-cpu]  # for older CPUs without modern instruction s
 - **Local or remote code source**:
   - Local scanning is handled by [`polars-ls`](https://github.com/lmmx/polars-ls) (included by default).
   - GitHub scanning is possible if [`octopolars`](https://github.com/lmmx/octopolars) is also installed (an optional extra) and you have a GitHub token or the `gh` CLI for private/authenticated repositories.
-- **LLM** (optional for certain features):  
-  - By default, you can use a local embedding method (via `polars-fastembed`).  
+- **LLM** (optional for certain features):
+  - By default, you can use a local embedding method (via `polars-fastembed`).
   - Generating textual “intents” requires an LLM; you can integrate your own API key or local model (not strictly enforced by `ntnts`).
 
 ---
@@ -61,7 +61,7 @@ pip install ntnts[polars-lts-cpu]  # for older CPUs without modern instruction s
 - **Execution-free code analysis**: No need to run the code or resolve imports. `ntnts` uses static methods (AST-like parsing or heuristics) to gather symbols and is designed to avoid heavy dependencies.
 - **LLM-based symbol descriptions**: Create short “intent” statements describing each symbol’s purpose. (Default is 5 variants per symbol, which can be condensed into a single embedding.)
 - **Vector embeddings**: Easily embed those “intents” with [polars-fastembed](https://github.com/lmmx/polars-fastembed). Store or export the resulting vectors for semantic search, clustering, or re-ranking.
-- **Local or GitHub**: Point `ntnts` at a local directory or use [octopolars](https://github.com/lmmx/octopolars) to read from GitHub repos.  
+- **Local or GitHub**: Point `ntnts` at a local directory or use [octopolars](https://github.com/lmmx/octopolars) to read from GitHub repos.
 - **Lightweight polars-based**: Everything is loaded into Polars DataFrames for efficient filtering, sorting, output to CSV/Parquet/JSON, etc.
 - **Pluggable**: Future integration with vector databases like Qdrant or LanceDB is planned but not required in the MVP.
 
@@ -174,13 +174,13 @@ You could then incorporate your own filtering, sorting, or advanced nearest-neig
 
 ## Project Structure
 
-- `cli.py` (or `__main__.py`): Defines the main **`ntnts`** CLI.  
-- `analyze.py`: Core logic to parse code symbols, generate or load LLM-based “intents,” return Polars DataFrame.  
-- `embed.py`: Utility to apply `polars-fastembed` for embedding textual data.  
-- `retrieve.py`: Optional similarity search routines.  
+- `cli.py` (or `__main__.py`): Defines the main **`ntnts`** CLI.
+- `analyze.py`: Core logic to parse code symbols, generate or load LLM-based “intents,” return Polars DataFrame.
+- `embed.py`: Utility to apply `polars-fastembed` for embedding textual data.
+- `retrieve.py`: Optional similarity search routines.
 
 Where possible, **caching**, **GitHub access**, and **local file listing** are offloaded to:
-- [polars-ls](https://github.com/lmmx/polars-ls) for local scanning.  
+- [polars-ls](https://github.com/lmmx/polars-ls) for local scanning.
 - [octopolars](https://github.com/lmmx/octopolars) for remote GitHub scanning (installed via extras).
 
 ---
@@ -189,10 +189,10 @@ Where possible, **caching**, **GitHub access**, and **local file listing** are o
 
 Maintained by the same author as [octopolars](https://github.com/lmmx/octopolars). Contributions are welcome!
 
-1. **Issues & Discussions**: Please open a GitHub issue or discussion for bugs, feature requests, or questions.  
-2. **Pull Requests**: PRs are welcome!  
-   - Install the dev extras: `pip install -e .[dev]`  
-   - Run tests (when available) and update docs or examples if relevant.  
+1. **Issues & Discussions**: Please open a GitHub issue or discussion for bugs, feature requests, or questions.
+2. **Pull Requests**: PRs are welcome!
+   - Install the dev extras: `pip install -e .[dev]`
+   - Run tests (when available) and update docs or examples if relevant.
    - For any bug report, please include the package version and, if possible, a traceback or error message.
 
 ---
@@ -205,14 +205,14 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ### Why “ntnts”?
 
-*(Q&A style note)*  
+*(Q&A style note)*
 **`ntnts`** is pronounced *“intents”*, highlighting that the tool’s main focus is extracting **intent** descriptions from code: short, high-level natural-language statements about each symbol’s purpose.
 
 ### Future Plans
 
-- Deeper **AST-based** symbol extraction for more languages.  
-- **Multi-repo** aggregation for large-scale code analytics.  
-- Integrations with **Qdrant** or **LanceDB** for advanced vector search.  
-- Additional **LLM** options (local or remote) with easy plugin support.  
+- Deeper **AST-based** symbol extraction for more languages.
+- **Multi-repo** aggregation for large-scale code analytics.
+- Integrations with **Qdrant** or **LanceDB** for advanced vector search.
+- Additional **LLM** options (local or remote) with easy plugin support.
 
 These are under active development—there’s no fixed timeline, and **`ntnts`** remains **lightweight** in its MVP form, focusing on simple, execution-free code analysis.
