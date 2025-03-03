@@ -8,7 +8,6 @@ import polars as pl
 import polars.selectors as cs  # noqa: F401
 import polars_hopper  # noqa: F401
 
-
 dsl_pattern = re.compile(r"\{(\w+)\}")
 
 
