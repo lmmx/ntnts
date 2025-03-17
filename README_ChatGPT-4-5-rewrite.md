@@ -104,4 +104,3 @@ Maintained by [lmmx](https://github.com/lmmx). Contributions are welcome!
 ## License
 
 Licensed under the [MIT License](https://opensource.org/licenses/MIT).
-

@@ -3,7 +3,6 @@
 import os
 import subprocess
 
-
 ENV_GH_TOKEN = os.getenv("GH_TOKEN")
 if ENV_GH_TOKEN is None:
     try:
