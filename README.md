@@ -1,26 +1,26 @@
-# octopolars
+# ntnts
 
-<!-- [![downloads](https://static.pepy.tech/badge/octopolars/month)](https://pepy.tech/project/octopolars) -->
+<!-- [![downloads](https://static.pepy.tech/badge/ntnts/month)](https://pepy.tech/project/ntnts) -->
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
-[![PyPI](https://img.shields.io/pypi/v/octopolars.svg)](https://pypi.org/project/octopolars)
-[![Supported Python versions](https://img.shields.io/pypi/pyversions/octopolars.svg)](https://pypi.org/project/octopolars)
-[![License](https://img.shields.io/pypi/l/octopolars.svg)](https://pypi.python.org/pypi/octopolars)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/lmmx/octopolars/master.svg)](https://results.pre-commit.ci/latest/github/lmmx/octopolars/master)
+[![PyPI](https://img.shields.io/pypi/v/ntnts.svg)](https://pypi.org/project/ntnts)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/ntnts.svg)](https://pypi.org/project/ntnts)
+[![License](https://img.shields.io/pypi/l/ntnts.svg)](https://pypi.python.org/pypi/ntnts)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/lmmx/ntnts/master.svg)](https://results.pre-commit.ci/latest/github/lmmx/ntnts/master)
 
 Pull, filter, walk, and read a GitHub user's repositories with Polars.
 
 ## Installation
 
 ```bash
-pip install octopolars
+pip install ntnts
 ```
 
 > The `polars` dependency is required but not included in the package by default.
 > It is shipped as an optional extra which can be activated by passing it in square brackets:
 > ```bash
-> pip install octopolars[polars]          # most users can install regular Polars
-> pip install octopolars[polars-lts-cpu]  # for backcompatibility with older CPUs
+> pip install ntnts[polars]          # most users can install regular Polars
+> pip install ntnts[polars-lts-cpu]  # for backcompatibility with older CPUs
 > ```
 
 ### Requirements
@@ -30,7 +30,7 @@ pip install octopolars
   to avoid rate limits and enable file listings.
     - **alternatively** set the `GH_TOKEN` environment variable as your GitHub token.
 
-octopolars is supported by:
+ntnts is supported by:
 
 - [Polars](https://www.pola.rs/) for efficient data filtering and output formatting.
 - [PyGithub](https://github.com/PyGithub/PyGithub) (for GitHub API access to enumerate the repos)
@@ -54,8 +54,8 @@ octopolars is supported by:
 There are 2 subcommands, `repos` and `issues`.
 
 ```sh
-$ octopols --help
-Usage: octopols [OPTIONS] COMMAND [ARGS]...
+$ ntnts --help
+Usage: ntnts [OPTIONS] COMMAND [ARGS]...
 
   GitHub CLI with 2 subcommands (see their help text for more information).
 
@@ -69,12 +69,12 @@ Commands:
   repos   Octopols - A CLI for listing GitHub repos or files by username,...
 ```
 
-The `repos` one is the default subcommand, and will run with just the `octopols` command plus a username.
+The `repos` one is the default subcommand, and will run with just the `ntnts` command plus a username.
 
-### octopols repos
+### ntnts repos
 
 ```bash
-Usage: octopols [OPTIONS] USERNAME
+Usage: ntnts [OPTIONS] USERNAME
 
   Octopols - A CLI for listing GitHub repos or files by username, with
   filters.
@@ -102,23 +102,23 @@ Usage: octopols [OPTIONS] USERNAME
 
   - List all repos
 
-      octopols lmmx
+      ntnts lmmx
 
   - List all repos that start with 'd'
 
-      octopols lmmx -f '{name}.str.starts_with("d")'
+      ntnts lmmx -f '{name}.str.starts_with("d")'
 
   - List only file paths from matching repos
 
-      octopols lmmx -w -f '{name} == "myrepo"'
+      ntnts lmmx -w -f '{name} == "myrepo"'
 
   - Read the *content* of all files from matching repos
 
-      octopols lmmx -x -f '{name}.str.starts_with("d3")'
+      ntnts lmmx -x -f '{name}.str.starts_with("d3")'
 
   - Filter and sort the repos by stars
 
-      octopols lmmx -f '{stars} > 8' -s 'pl.all().sort_by("stars",
+      ntnts lmmx -f '{stars} > 8' -s 'pl.all().sort_by("stars",
       descending=True)'
 
 Options:
@@ -148,7 +148,7 @@ Options:
 #### Example 1: List All Repos for a User
 
 ```bash
-octopols lmmx --quiet
+ntnts lmmx --quiet
 ```
 
 Displays a table of all repositories belonging to "lmmx" in abridged format.
@@ -177,7 +177,7 @@ shape: (226, 9)
 #### Example 2: Filter Repos by Name
 
 ```bash
-octopols lmmx -f '{name}.str.contains("demo")'
+ntnts lmmx -f '{name}.str.contains("demo")'
 ```
 
 Uses the DSL expression to select only repositories with “demo” in the repo name.
@@ -204,7 +204,7 @@ shape: (9, 9)
 #### Example 3: Walk an Entire Repo
 
 ```bash
-octopols lmmx -f '{name} == "mvdef"' --walk --quiet
+ntnts lmmx -f '{name} == "mvdef"' --walk --quiet
 ```
 
 Lists all files in the repository named "mvdef", abbreviating the output table in 'quiet' format.
@@ -233,7 +233,7 @@ shape: (121, 4)
 #### Example 4: Filter Repos by Name, List All Files
 
 ```bash
-octopols lmmx -f '{name}.str.starts_with("d3")' --walk
+ntnts lmmx -f '{name}.str.starts_with("d3")' --walk
 ```
 
 List all files in every repository owned by "lmmx" whose repo name starts with "d3".
@@ -263,7 +263,7 @@ shape: (12, 4)
 #### Example 5: Filter Repos by Name, Read All Files
 
 ```bash
-octopols lmmx -x --filter='{name}.str.contains("uv")' --quiet
+ntnts lmmx -x --filter='{name}.str.contains("uv")' --quiet
 ```
 
 Read the content of all files whose repo name starts with "d3" owned by "lmmx".
@@ -301,7 +301,7 @@ shape: (28, 4)
 #### Example 6: Filter Repos by Name, Add Columns Based on Description
 
 ```bash
-octopols lmmx -f '{name}.str.starts_with("d3")' -a '{description}.str.contains("AWS").alias("Will It Cloud?")'
+ntnts lmmx -f '{name}.str.starts_with("d3")' -a '{description}.str.contains("AWS").alias("Will It Cloud?")'
 ```
 
 Adds a boolean column called "Will It Cloud?" based on whether the repo description contains "AWS".
@@ -321,7 +321,7 @@ shape: (2, 10)
 #### Example 7: Filter Repos by Stars, Sort By Stars
 
 ```sh
-octopols lmmx -f '{stars} > 8' -s 'pl.all().sort_by("stars", descending=True)'
+ntnts lmmx -f '{stars} > 8' -s 'pl.all().sort_by("stars", descending=True)'
 ```
 
 ```
@@ -341,13 +341,13 @@ shape: (6, 9)
 ```
 
 
-### octopols issues
+### ntnts issues
 
 The issues is an extra feature, and paginates 100 issues at a time (anything above that
 may make you wait a little while).
 
 ```sh
-time octopols issues huggingface/transformers > /dev/null
+time ntnts issues huggingface/transformers > /dev/null
 ```
 
 ```
@@ -363,7 +363,7 @@ Some more example usage follows.
 ### Example 1: Sort issues by frequency of a keyword
 
 ```sh
-octopols issues pola-rs/polars -a '{body}.str.count_matches("foo").alias("matches")' -s 'pl.all().sort_by({matches}, descending=True)' -s 'pl.col("number", "title", "body")' -f '{matches} > 0' -o json
+ntnts issues pola-rs/polars -a '{body}.str.count_matches("foo").alias("matches")' -s 'pl.all().sort_by({matches}, descending=True)' -s 'pl.col("number", "title", "body")' -f '{matches} > 0' -o json
 ```
 
 This one could be used interactively with `jq` to pretty-print the JSON output, or in a CI workflow.
@@ -379,10 +379,10 @@ It says:
 
 ### Library Usage
 
-You can also import `octopols.Inventory` directly:
+You can also import `ntnts.Inventory` directly:
 
 ```python
-from octopols import Inventory
+from ntnts import Inventory
 
 inv = Inventory(username="lmmx")
 repos_df = inv.list_repos()
@@ -399,7 +399,7 @@ files_df = inv.walk_file_trees()
 
 ## Project Structure
 
-- `cli.py`: Defines the CLI (`octopols`) with all available options and flags.
+- `cli.py`: Defines the CLI (`ntnts`) with all available options and flags.
 - `inventory.py`: Core logic for retrieving repos, walking file trees, caching, and applying filters.
 
 ## Contributing
